@@ -8,24 +8,26 @@ import {
   CiSearch,
   CiShoppingBasket,
 } from "react-icons/ci";
+import Link from "next/link";
+
+const getTotalCount = (cart: { [id: string]: number }) => {
+  let items = 0;
+
+  // Funcion de javascript para obtener el valor de los
+  Object.values(cart).forEach((value) => {
+    items += value as number;
+  });
+
+  return items;
+};
 
 export const TopMenu = () => {
   const cookieStore = cookies();
   const cart = JSON.parse(cookieStore.get("cart")?.value ?? "{}");
-
-  const getTotalCount = () => {
-    let items = 0;
-
-    // Funcion de javascript para obtener el valor de los
-    Object.values(cart).forEach((value) => {
-      items += value as number;
-    });
-
-    return items;
-  };
+  const totalItems = getTotalCount(cart);
 
   return (
-    <div className=" dark:bg-gray-900 sticky z-10 top-0 h-16 border-b bg-white lg:py-2.5">
+    <div className=" dark:bg-gray-950 sticky z-10 top-0 h-16  bg-white lg:py-2.5 2xl:py-2.5">
       <div className="px-6 flex items-center justify-between space-x-4">
         <h5 hidden className="text-2xl text-gray-600 font-medium lg:block">
           Dashboard
@@ -56,10 +58,17 @@ export const TopMenu = () => {
           <button className="flex items-center justify-center w-10 h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200  text-gray-600 dark:text-white dark:bg-gray-800">
             <CiChat1 size={25} />
           </button>
-          <button className=" p-2 flex items-center justify-center h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200  text-gray-600 dark:text-white dark:bg-gray-800  border-gray-300">
-            <span className="text-sm mr-2 font-bold">{getTotalCount()}</span>
+          <Link
+            href={"/dashboard/cart"}
+            className=" p-2 flex items-center justify-center h-10 rounded-xl border bg-gray-100 focus:bg-gray-100 active:bg-gray-200  text-gray-600 dark:text-white dark:bg-gray-800  border-gray-300"
+          >
+            {totalItems > 0 && (
+              <span className="text-sm mr-2 font-bold text-blue-700">
+                {totalItems}
+              </span>
+            )}
             <CiShoppingBasket size={25} />
-          </button>
+          </Link>
         </div>
       </div>
     </div>

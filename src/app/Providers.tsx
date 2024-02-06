@@ -15,7 +15,7 @@ export default function Providers({ children }: any) {
   }
 
   return (
-    <ThemeProvider defaultTheme="dark" attribute="class">
+    <ThemeProvider defaultTheme="light" attribute="class">
       {children}
     </ThemeProvider>
   );

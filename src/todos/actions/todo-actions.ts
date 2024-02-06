@@ -33,9 +33,12 @@ export const toggleTodo = async (
   return updatedTodo;
 };
 
-export const addTodo = async (description: string) => {
+//Al final esta action no se usa para crear los todos en ambas paginas "Server Actions" y "RESTful API Todos" se crean via RESTful API (POST).
+export const addTodo = async (description: string, userId: string) => {
   try {
-    const todo = await prisma.todo.create({ data: { description } });
+    const todo = await prisma.todo.create({
+      data: { description, userId: "" },
+    });
 
     revalidatePath("/dashboard/server-todos");
     return todo;

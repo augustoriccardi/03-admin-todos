@@ -9,7 +9,7 @@ export default function DashboardLayout({
   return (
     <>
       <Sidebar />
-      <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] h-screen">
+      <div className="ml-auto mb-6 lg:w-[75%] xl:w-[80%] 2xl:w-[85%] ">
         <TopMenu />
         <div className="px-6 pt-6 pb-5 dark:bg-gray-800 min-h-screen">
           {children}

@@ -5,7 +5,11 @@
 import Image from "next/image";
 import { IoAddCircleOutline, IoTrashOutline } from "react-icons/io5";
 import { Star } from "..";
-import { addProductToCart } from "@/shopping-cart/actions/actions";
+import {
+  addProductToCart,
+  removeProductFromCart,
+} from "@/shopping-cart/actions/actions";
+import { useRouter } from "next/navigation";
 
 interface Props {
   id: string;
@@ -16,8 +20,16 @@ interface Props {
 }
 
 export const ProductCard = ({ id, name, price, rating, image }: Props) => {
+  const router = useRouter();
+
   const onAddToCart = () => {
     addProductToCart(id);
+    router.refresh();
+  };
+
+  const onRemoveProductFromCart = () => {
+    removeProductFromCart(id);
+    router.refresh();
   };
 
   return (
@@ -56,8 +68,8 @@ export const ProductCard = ({ id, name, price, rating, image }: Props) => {
 
         {/* Price and Add to Cart */}
         <div className="flex items-center justify-between">
-          <span className="text-3xl font-bold text-gray-900 dark:text-white">
-            {price}
+          <span className="text-2xl font-bold text-gray-900 dark:text-white mr-2">
+            ${price.toFixed(2)}
           </span>
 
           <div className="flex">
@@ -67,7 +79,10 @@ export const ProductCard = ({ id, name, price, rating, image }: Props) => {
             >
               <IoAddCircleOutline size={25} />
             </button>
-            <button className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+            <button
+              onClick={onRemoveProductFromCart}
+              className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+            >
               <IoTrashOutline size={20} />
             </button>
           </div>

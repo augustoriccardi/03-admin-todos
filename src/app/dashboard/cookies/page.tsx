@@ -15,7 +15,7 @@ export default function CookiesPage() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 dark:text-gray-300">
       <div className="flex flex-col">
-        <span className="text-3xl dark:text-gray-300">Tabs</span>
+        <span className="text-3xl dark:text-white">Tabs</span>
         <TabBar currentTab={cookieTab} />
         <br />
         {JSON.stringify(allCookies)}

@@ -1,6 +1,7 @@
 "use client";
 
 import { setCookie } from "cookies-next";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 // https://tailwindcomponents.com/component/radio-buttons-1
@@ -17,16 +18,19 @@ export const TabBar = ({
   currentTab = 1,
 }: Props) => {
   const [selected, setSelected] = useState(currentTab);
+  const router = useRouter();
 
   const onTabSelected = (tab: number) => {
     setSelected(tab);
     setCookie("selectedTab", tab.toString());
+    router.refresh();
   };
 
+  //${"grid-cols-" + tabOptions.length}
   return (
     <div
       className={`grid w-full space-x-2 rounded-xl bg-gray-200 p-2 
-      ${"grid-cols-" + tabOptions.length} dark:bg-black dark:text-gray-600
+      grid-cols-4 dark:bg-black dark:text-gray-600
     `}
     >
       {tabOptions.map((tab) => (
